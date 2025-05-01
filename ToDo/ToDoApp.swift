@@ -6,27 +6,22 @@
 //
 
 import SwiftUI
-import SwiftData
+import ComposableArchitecture
 
 @main
-struct ToDoApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-
+struct MyApp: App {
+    
+    let context = PersistenceController.shared.container.viewContext
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ReminderListView(
+                store: Store(
+                    initialState: ReminderListReducer.State(),
+                    reducer: { ReminderListReducer() }
+                )
+            )
+            .environment(\.managedObjectContext, context)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
