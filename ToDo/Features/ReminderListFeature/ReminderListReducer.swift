@@ -54,8 +54,9 @@ struct ReminderListReducer {
             // Create and save a new reminder
             case .saveReminder:
                 return .run { send in
-                    let model = coreDataDependency.createReminder("\(Date())", Date())
+                    let model = coreDataDependency.createReminder("\(Date())")
                     coreDataDependency.insert(model)
+                    
                     try coreDataDependency.save()
                     await send(.fetchReminders)
                 }

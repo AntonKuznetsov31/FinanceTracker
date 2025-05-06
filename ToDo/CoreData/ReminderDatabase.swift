@@ -17,8 +17,6 @@ public struct ReminderDatabase: DependencyKey {
     }
     
     public var fetchAll: @Sendable (NSFetchRequest<ReminderModel>) throws -> [ReminderModel]
-    //    public var fetch: @Sendable (NSFetchRequest<ReminderModel>) throws -> [ReminderModel]
-    //    public var fetchCount: @Sendable (NSFetchRequest<ReminderModel>) throws -> Int
     public var add: @Sendable (ReminderModel) throws -> Void
     public var delete: @Sendable (ReminderModel) throws -> Void
     public var save: @Sendable () throws -> Void
@@ -29,12 +27,6 @@ public struct ReminderDatabase: DependencyKey {
             fetchAll: { request in
                 try context.fetch(request)
             },
-            //        fetch: { model in
-            //            // Fetch workouts based on descriptor criteria
-            //        },
-            //        fetchCount: { model in
-            //            // Fetch count of workouts based on descriptor criteria
-            //        },
             add: { model in
                 context.insert(model)
             },

@@ -16,7 +16,7 @@ struct CoreDataDependency {
     var delete: (ReminderModel) -> Void
     var save: () throws -> Void
     var fetch: (NSFetchRequest<ReminderModel>) throws -> [ReminderModel]
-    var createReminder: (_ title: String, _ createdAt: Date) -> ReminderModel
+    var createReminder: (_ title: String) -> ReminderModel
 }
 
 // This key allows TCA to resolve CoreDataDependency through DependencyValues
@@ -38,11 +38,11 @@ private enum CoreDataDependencyKey: DependencyKey {
             fetch: { request in
                 try context.fetch(request)
             },
-            createReminder: { title, createdAt in
+            createReminder: { title in
                 let model = ReminderModel(context: context)
                 model.id = UUID()
                 model.title = title
-                model.createdAt = createdAt
+                model.createdAt = Date()
                 model.isCompleted = false
                 return model
             }
