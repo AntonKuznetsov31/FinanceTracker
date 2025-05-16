@@ -16,7 +16,7 @@ struct CoreDataDependency {
     var delete: (SpendingModel) -> Void
     var save: () throws -> Void
     var fetch: (NSFetchRequest<SpendingModel>) throws -> [SpendingModel]
-    var createSpending: (_ title: String) -> SpendingModel
+    var createSpending: (_ amount: Decimal) -> SpendingModel
 }
 
 // This key allows TCA to resolve CoreDataDependency through DependencyValues
@@ -38,8 +38,8 @@ private enum CoreDataDependencyKey: DependencyKey {
             fetch: { request in
                 try context.fetch(request)
             },
-            createSpending: { title in
-                SpendingModel(context: context, title: title, isCompleted: false, createdAt: Date())
+            createSpending: { amount in
+                SpendingModel(context: context, amount: amount, createdAt: Date())
             }
         )
     }

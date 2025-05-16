@@ -77,12 +77,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AB5B41B2DD7936E006CCE8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E078D43B2DBA604200242492 = {
 			isa = PBXGroup;
 			children = (
 				E078D4462DBA604200242492 /* FinanceTracker */,
 				E078D4572DBA604400242492 /* FinanceTrackerTests */,
 				E078D4612DBA604400242492 /* FinanceTrackerUITests */,
+				3AB5B41B2DD7936E006CCE8B /* Frameworks */,
 				E078D4452DBA604200242492 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -496,10 +504,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = antonk.ToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinanceTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FinanceTracker";
 				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
@@ -519,10 +528,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = antonk.ToDoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinanceTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FinanceTracker";
 				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
@@ -541,10 +551,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = antonk.ToDoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = ToDo;
 				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
@@ -563,10 +574,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = antonk.ToDoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = ToDo;
 				XROS_DEPLOYMENT_TARGET = 2.4;
 			};

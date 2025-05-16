@@ -49,7 +49,7 @@ struct SpendingsListView: View {
             }
         }
         .onAppear {
-            viewStore.send(.fetchSpendings)
+            viewStore.send(.loadSpendings)
         }
     }
 }

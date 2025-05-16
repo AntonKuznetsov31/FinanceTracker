@@ -11,15 +11,19 @@ import CoreData
 
 struct Spending: Identifiable, Equatable {
     let id: UUID
-    let title: String
-    let isCompleted: Bool
+    let amount: Decimal
     let createdAt: Date
-
+    
     init(from model: SpendingModel) {
         self.id = model.id
-        self.title = model.title
-        self.isCompleted = model.isCompleted
+        self.amount = model.amount.decimalValue
         self.createdAt = model.createdAt
+    }
+    
+    init(amount: Decimal) {
+        self.id = UUID()
+        self.amount = amount
+        self.createdAt = Date()
     }
 }
 
@@ -28,16 +32,14 @@ struct Spending: Identifiable, Equatable {
 @objc(SpendingModel)
 public class SpendingModel: NSManagedObject {
     @NSManaged public var id: UUID
-    @NSManaged public var title: String
-    @NSManaged public var isCompleted: Bool
+    @NSManaged public var amount: NSDecimalNumber
     @NSManaged public var createdAt: Date
     
     // Convenience init for manual creation (not used in reducer)
-    convenience init(context: NSManagedObjectContext, title: String, isCompleted: Bool, createdAt: Date) {
+    convenience init(context: NSManagedObjectContext, amount: Decimal, createdAt: Date) {
         self.init(context: context)
         self.id = UUID()
-        self.title = title
-        self.isCompleted = isCompleted
+        self.amount = NSDecimalNumber(decimal: amount)
         self.createdAt = createdAt
     }
 }
