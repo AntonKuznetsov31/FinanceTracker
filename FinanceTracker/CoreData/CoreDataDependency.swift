@@ -1,6 +1,6 @@
 //
 //  CoreDataDependency.swift
-//  ToDo
+//  FinanceTracker
 //
 //  Created by Anton Kuznetsov on 28/04/2025.
 //
@@ -12,11 +12,11 @@ import CoreData
 
 // This struct defines a dependency for common CoreData operations.
 struct CoreDataDependency {
-    var insert: (ReminderModel) -> Void
-    var delete: (ReminderModel) -> Void
+    var insert: (SpendingModel) -> Void
+    var delete: (SpendingModel) -> Void
     var save: () throws -> Void
-    var fetch: (NSFetchRequest<ReminderModel>) throws -> [ReminderModel]
-    var createReminder: (_ title: String) -> ReminderModel
+    var fetch: (NSFetchRequest<SpendingModel>) throws -> [SpendingModel]
+    var createSpending: (_ title: String) -> SpendingModel
 }
 
 // This key allows TCA to resolve CoreDataDependency through DependencyValues
@@ -38,8 +38,8 @@ private enum CoreDataDependencyKey: DependencyKey {
             fetch: { request in
                 try context.fetch(request)
             },
-            createReminder: { title in
-                ReminderModel(context: context, title: title, isCompleted: false, createdAt: Date())
+            createSpending: { title in
+                SpendingModel(context: context, title: title, isCompleted: false, createdAt: Date())
             }
         )
     }

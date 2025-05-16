@@ -1,6 +1,6 @@
 //
-//  ReminderListReducer.swift
-//  ToDo
+//  SpendingsListReducer.swift
+//  FinanceTracker
 //
 //  Created by Anton Kuznetsov on 27/04/2025.
 //
@@ -8,21 +8,21 @@
 import ComposableArchitecture
 import CoreData
 
-// MARK: - Reducer: Handles Reminder list business logic
+// MARK: - Reducer: Handles Spendings list business logic
 
 @Reducer
-struct ReminderListReducer {
+struct SpendingsListReducer {
 
     @ObservableState
     struct State: Equatable {
-        var reminders: [Reminder] = []
+        var spendings: [Spending] = []
     }
 
     enum Action {
-        case fetchReminders
-        case fetchResponse([Reminder])
-        case saveReminder
-        case deleteReminder(Reminder)
+        case fetchSpendings
+        case fetchResponse([Spending])
+        case saveSpending
+        case deleteSpending(Spending)
         case errorOccurred(Error)
     }
 
@@ -32,45 +32,45 @@ struct ReminderListReducer {
         Reduce { state, action in
             switch action {
                 
-            // Fetch all reminders from CoreData
-            case .fetchReminders:
+            // Fetch all spendings from CoreData
+            case .fetchSpendings:
                 return .run { send in
-                    let request = NSFetchRequest<ReminderModel>(entityName: "ReminderModel")
+                    let request = NSFetchRequest<SpendingModel>(entityName: "SpendingModel")
                     do {
                         let fetchedModels = try coreDataDependency.fetch(request)
-                        let reminders = fetchedModels.map { Reminder(from: $0) }
-                        await send(.fetchResponse(reminders))
+                        let spendings = fetchedModels.map { Spending(from: $0) }
+                        await send(.fetchResponse(spendings))
                     } catch {
                         print("Fetch failed: \(error.localizedDescription)")
                         await send(.errorOccurred(error))
                     }
                 }
                 
-            // Update state with fetched reminders
-            case let .fetchResponse(reminders):
-                state.reminders = reminders
+            // Update state with fetched spendings
+            case let .fetchResponse(spendings):
+                state.spendings = spendings
                 return .none
 
-            // Create and save a new reminder
-            case .saveReminder:
+            // Create and save a new spending
+            case .saveSpending:
                 return .run { send in
-                    let model = coreDataDependency.createReminder("\(Date())")
+                    let model = coreDataDependency.createSpending("\(Date())")
                     coreDataDependency.insert(model)
                     
                     try coreDataDependency.save()
-                    await send(.fetchReminders)
+                    await send(.fetchSpendings)
                 }
 
-            // Delete reminder by ID if it exists in CoreData
-            case let .deleteReminder(reminder):
+            // Delete spending by ID if it exists in CoreData
+            case let .deleteSpending(spending):
                 return .run { send in
-                    let request = NSFetchRequest<ReminderModel>(entityName: "ReminderModel")
-                    request.predicate = NSPredicate(format: "id == %@", reminder.id as CVarArg)
+                    let request = NSFetchRequest<SpendingModel>(entityName: "SpendingModel")
+                    request.predicate = NSPredicate(format: "id == %@", spending.id as CVarArg)
                     if let model = try coreDataDependency.fetch(request).first {
                         coreDataDependency.delete(model)
                         try coreDataDependency.save()
                     }
-                    await send(.fetchReminders)
+                    await send(.fetchSpendings)
                 }
 
             case .errorOccurred:

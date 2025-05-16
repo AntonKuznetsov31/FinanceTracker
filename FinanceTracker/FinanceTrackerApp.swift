@@ -1,6 +1,6 @@
 //
-//  ToDoApp.swift
-//  ToDo
+//  FinanceTrackerApp.swift
+//  FinanceTracker
 //
 //  Created by Anton Kuznetsov on 24/04/2025.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 @main
-struct MyApp: App {
+struct FinanceTrackerApp: App {
     
     let context = PersistenceController.shared.container.viewContext
     
@@ -18,10 +18,10 @@ struct MyApp: App {
             withDependencies {
                 $0.managedObjectContext = context
             } operation: {
-                ReminderListView(
-                    store: Store(
-                        initialState: ReminderListReducer.State(),
-                        reducer: { ReminderListReducer() }
+                SpendingsListView(
+                    viewStore: Store(
+                        initialState: SpendingsListReducer.State(),
+                        reducer: { SpendingsListReducer() }
                     )
                 )
             }

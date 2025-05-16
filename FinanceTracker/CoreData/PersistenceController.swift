@@ -1,6 +1,6 @@
 //
 //  PersistenceController.swift
-//  ToDo
+//  FinanceTracker
 //
 //  Created by Anton Kuznetsov on 28/04/2025.
 //

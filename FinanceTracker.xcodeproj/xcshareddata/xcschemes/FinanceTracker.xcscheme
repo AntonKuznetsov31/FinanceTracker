@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E078D4432DBA604200242492"
-               BuildableName = "ToDo.app"
-               BlueprintName = "ToDo"
-               ReferencedContainer = "container:ToDo.xcodeproj">
+               BuildableName = "FinanceTracker.app"
+               BlueprintName = "FinanceTracker"
+               ReferencedContainer = "container:FinanceTracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E078D4532DBA604400242492"
-               BuildableName = "ToDoTests.xctest"
-               BlueprintName = "ToDoTests"
-               ReferencedContainer = "container:ToDo.xcodeproj">
+               BuildableName = "FinanceTrackerTests.xctest"
+               BlueprintName = "FinanceTrackerTests"
+               ReferencedContainer = "container:FinanceTracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E078D45D2DBA604400242492"
-               BuildableName = "ToDoUITests.xctest"
-               BlueprintName = "ToDoUITests"
-               ReferencedContainer = "container:ToDo.xcodeproj">
+               BuildableName = "FinanceTrackerUITests.xctest"
+               BlueprintName = "FinanceTrackerUITests"
+               ReferencedContainer = "container:FinanceTracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E078D4432DBA604200242492"
-            BuildableName = "ToDo.app"
-            BlueprintName = "ToDo"
-            ReferencedContainer = "container:ToDo.xcodeproj">
+            BuildableName = "FinanceTracker.app"
+            BlueprintName = "FinanceTracker"
+            ReferencedContainer = "container:FinanceTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -87,9 +87,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E078D4432DBA604200242492"
-            BuildableName = "ToDo.app"
-            BlueprintName = "ToDo"
-            ReferencedContainer = "container:ToDo.xcodeproj">
+            BuildableName = "FinanceTracker.app"
+            BlueprintName = "FinanceTracker"
+            ReferencedContainer = "container:FinanceTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

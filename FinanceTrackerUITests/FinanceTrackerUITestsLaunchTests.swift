@@ -1,13 +1,13 @@
 //
-//  ToDoUITestsLaunchTests.swift
-//  ToDoUITests
+//  FinanceTrackerUITestsLaunchTests.swift
+//  FinanceTrackerUITests
 //
 //  Created by Anton Kuznetsov on 24/04/2025.
 //
 
 import XCTest
 
-final class ToDoUITestsLaunchTests: XCTestCase {
+final class FinanceTrackerUITestsLaunchTests: XCTestCase {
     
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
