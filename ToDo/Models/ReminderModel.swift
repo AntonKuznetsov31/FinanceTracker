@@ -25,7 +25,8 @@ struct Reminder: Identifiable, Equatable {
 
 // MARK: - CoreData Entity
 
-public class ReminderModel: NSManagedObject, Identifiable {
+@objc(ReminderModel)
+public class ReminderModel: NSManagedObject {
     @NSManaged public var id: UUID
     @NSManaged public var title: String
     @NSManaged public var isCompleted: Bool

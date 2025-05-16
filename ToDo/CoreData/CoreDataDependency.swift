@@ -39,12 +39,7 @@ private enum CoreDataDependencyKey: DependencyKey {
                 try context.fetch(request)
             },
             createReminder: { title in
-                let model = ReminderModel(context: context)
-                model.id = UUID()
-                model.title = title
-                model.createdAt = Date()
-                model.isCompleted = false
-                return model
+                ReminderModel(context: context, title: title, isCompleted: false, createdAt: Date())
             }
         )
     }

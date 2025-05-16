@@ -15,13 +15,17 @@ struct MyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ReminderListView(
-                store: Store(
-                    initialState: ReminderListReducer.State(),
-                    reducer: { ReminderListReducer() }
+            withDependencies {
+                $0.managedObjectContext = context
+            } operation: {
+                ReminderListView(
+                    store: Store(
+                        initialState: ReminderListReducer.State(),
+                        reducer: { ReminderListReducer() }
+                    )
                 )
-            )
-            .environment(\.managedObjectContext, context)
+            }
+            .environment(\.managedObjectContext, context) // keep it for possible SwiftUI needs
         }
     }
 }
