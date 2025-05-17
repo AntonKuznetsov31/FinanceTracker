@@ -13,19 +13,28 @@ import SwiftUI
 struct SpendingsListView: View {
     
     @Bindable private var viewStore: StoreOf<SpendingsListReducer>
+    @State private var isPresentedAddSheet = false
+    @State private var spendingAmount: String = ""
     
     init(viewStore: StoreOf<SpendingsListReducer>) {
         self.viewStore = viewStore
     }
     
     var body: some View {
+        mainView
+        .onAppear {
+            viewStore.send(.loadSpendings)
+        }
+    }
+    
+    var mainView: some View {
         NavigationView {
             List {
                 ForEach(viewStore.state.spendings) { spending in
                     NavigationLink {
-                        Text("Spending at \(spending.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text("\(spending.createdAt.localized(in: "spending_at_title"))")
                     } label: {
-                        Text(spending.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text("$\(spending.amount) ")
                     }
                 }
                 .onDelete { indexSet in
@@ -36,20 +45,67 @@ struct SpendingsListView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                toolbarContent
+            }
+            .sheet(isPresented: Binding(
+                get: { viewStore.isPresentingAddSpending },
+                set: { isPresented in
+                    viewStore.send(isPresented ? .presentAddSpendingSheet : .dismissAddSpendingSheet)
                 }
-                ToolbarItem {
-                    Button(action: {
-                        viewStore.send(.saveSpending)
-                    }) {
-                        Label("Add spending", systemImage: "plus")
-                    }
-                }
+            )) {
+                addSpendingView
             }
         }
-        .onAppear {
-            viewStore.send(.loadSpendings)
+    }
+    
+    var addSpendingView: some View {
+        VStack(spacing: 20) {
+            Text("enter_amount_title")
+                .font(.headline)
+            
+            TextField("amount_title", text: $spendingAmount)
+                .keyboardType(.decimalPad)
+                .padding()
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.blue, lineWidth: 2)
+                )
+            
+            HStack() {
+                Button("cancel_button_title") {
+                    viewStore.send(.dismissAddSpendingSheet)
+                }
+                .foregroundColor(.red)
+                
+                Spacer()
+                
+                Button("ok_button_title") {
+                    if let amount = Decimal(string: spendingAmount.replacingOccurrences(of: ",", with: ".")) {
+                        viewStore.send(.addSpending(amount))
+                    }
+                    viewStore.send(.dismissAddSpendingSheet)
+                }
+                .disabled(Decimal(string: spendingAmount.replacingOccurrences(of: ",", with: ".")) == nil)
+            }
+            .padding(.horizontal)
+        }
+        .padding()
+    }
+    
+    var toolbarContent: some ToolbarContent {
+        return Group {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+            ToolbarItem {
+                Button(action: {
+                    viewStore.send(.presentAddSpendingSheet)
+                }) {
+                    Label("add_spending_title", systemImage: "plus")
+                }
+            }
         }
     }
 }

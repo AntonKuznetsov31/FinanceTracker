@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  FinanceTracker
+
+  Created by Anton Kuznetsov on 17.05.2025.
+  
+*/
+
+// MARK: - General
+
+"ok_button_title" = "OK";
+"cancel_button_title" = "Cancel";
+
+// MARK: - Spending list view
+
+"enter_amount_title" = "Enter amount";
+"amount_title" = "Amount";
+"add_spending_title" = "Add spending";
+"spending_at_title" = "Spending at %@";
+
+// MARK: - Spending details view

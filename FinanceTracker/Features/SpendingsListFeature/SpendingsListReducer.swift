@@ -17,22 +17,26 @@ struct SpendingsListReducer: Reducer {
         var spendings: [Spending] = []
         var showAlert: Bool = false
         var errorMessage: String?
+        var isPresentingAddSpending = false
     }
     
     enum Action: Equatable {
         case loadSpendings // action to load data
         case spendingsLoaded([Spending]) // action when data have been received
-        case saveSpending
+        case addSpending(Decimal)
+        case presentAddSpendingSheet
+        case dismissAddSpendingSheet
         case deleteSpending(Spending)
         case errorOccurred(Error)
         
         static func == (lhs: Action, rhs: Action) -> Bool {
             switch (lhs, rhs) {
-            case (.loadSpendings, .loadSpendings),
-                (.saveSpending, .saveSpending):
+            case (.loadSpendings, .loadSpendings):
                 return true
             case let (.spendingsLoaded(lhsSpendings), .spendingsLoaded(rhsSpendings)):
                 return lhsSpendings == rhsSpendings
+            case let (.addSpending(lhsSpending), .addSpending(rhsSpending)):
+                return lhsSpending == rhsSpending
             case let (.deleteSpending(lhs), .deleteSpending(rhs)):
                 return lhs == rhs
             case let (.errorOccurred(lhs), .errorOccurred(rhs)):
@@ -68,15 +72,22 @@ struct SpendingsListReducer: Reducer {
                 state.spendings = spendings
                 return .none
                 
-                // Create and save a new spending
-            case .saveSpending:
+                // Add new spending
+            case let .addSpending(amount):
                 return .run { send in
-                    let model = coreDataDependency.createSpending(1.0)
-                    coreDataDependency.insert(model)
-                    
+                    _ = coreDataDependency.createSpending(amount)
                     try coreDataDependency.save()
                     await send(.loadSpendings)
                 }
+                
+                // Handle new spending sheet
+            case .presentAddSpendingSheet:
+                state.isPresentingAddSpending = true
+                return .none
+                
+            case .dismissAddSpendingSheet:
+                state.isPresentingAddSpending = false
+                return .none
                 
                 // Delete spending by ID if it exists in CoreData
             case let .deleteSpending(spending):

@@ -11,10 +11,11 @@ import CoreData
 
 // Sets up Core Data stack with NSPersistentContainer
 struct PersistenceController {
+    
     static let shared = PersistenceController()
     let container: NSPersistentContainer
     
-    init() {
+    private init() {
         container = NSPersistentContainer(name: "DataModel")
         container.loadPersistentStores { _, error in
             if let error = error {
