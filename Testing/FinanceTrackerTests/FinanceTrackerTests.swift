@@ -45,15 +45,10 @@ final class SpendingsListReducerTests: XCTestCase {
     }
 
     func testSaveSpendingSuccess() async {
-        var insertedModels: [SpendingModelMock] = []
-        
         let container = makeInMemoryPersistentContainer()
         let context = container.viewContext
 
         let store = await TestStore(initialState: SpendingsListReducer.State(), reducer: { SpendingsListReducer() }) {
-            $0.coreDataDependency.insert = { model in
-                insertedModels.append(SpendingModelMock(from: Spending(from: model), context: context))
-            }
             $0.coreDataDependency.createSpending = { _ in
                 SpendingModelMock(from: Spending(amount: 1.0), context: context)
             }
@@ -61,18 +56,20 @@ final class SpendingsListReducerTests: XCTestCase {
             $0.coreDataDependency.fetch = { _ in [] }
         }
 
-        await store.send(SpendingsListReducer.Action.saveSpending)
+        await store.send(SpendingsListReducer.Action.addSpending(1.0))
         await store.receive(SpendingsListReducer.Action.loadSpendings)
         await store.receive(SpendingsListReducer.Action.spendingsLoaded([]))
         
-        XCTAssertEqual(insertedModels.count, 1)
+        let request = NSFetchRequest<SpendingModel>(entityName: "SpendingModel")
+        let saved = try! context.fetch(request)
+        XCTAssertEqual(saved.count, 1)
     }
 }
 
 final class SpendingModelMock: SpendingModel {
     init(from spending: Spending, context: NSManagedObjectContext) {
         let entity = NSEntityDescription.entity(forEntityName: "SpendingModel", in: context)!
-        super.init(entity: entity, insertInto: nil)
+        super.init(entity: entity, insertInto: context)
         self.setValue(spending.id, forKey: "id")
         self.setValue(spending.amount, forKey: "amount")
         self.setValue(spending.createdAt, forKey: "createdAt")
